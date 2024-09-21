@@ -51,3 +51,13 @@ export const deleteNote = async (id) => {
     throw error;
   }
 };
+
+export const sendNoteReminder = async (id, data) => {
+  try {
+    const response = await axios.post(`${API_URL}/${id}/reminder`, data)
+    return response.data
+  } catch (error) {
+    console.error(`Error sending reminder of note with ID ${id}:`, error);
+    throw error;
+  }
+}

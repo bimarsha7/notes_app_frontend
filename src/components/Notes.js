@@ -12,6 +12,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Grid2 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
+import NotificationAddIcon from '@mui/icons-material/NotificationAdd';
+import FormDialog from './ReminderDialog';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fff',
@@ -34,6 +36,8 @@ const bull = (
 );
 
 function TextEditor({ id, title, content, readNotes }) {
+  const [open, setOpen] = useState(false);
+
   const handleDelete = async () => {
     await deleteNote(id);
     readNotes()
@@ -43,6 +47,9 @@ function TextEditor({ id, title, content, readNotes }) {
       title: title,
       content: html
     });
+  }
+  const handleReminder = () => {
+    setOpen(true)
   }
   return (
     <Fragment>
@@ -62,6 +69,7 @@ function TextEditor({ id, title, content, readNotes }) {
           justifyContent: 'end',
           position: 'end',
           ml: 25,
+          pr: 2
         }}
           onClick={handleDelete}
         />
@@ -76,7 +84,15 @@ function TextEditor({ id, title, content, readNotes }) {
         />
       </CardContent>
       <CardActions>
+        <NotificationAddIcon onClick={handleReminder} />
       </CardActions>
+      <FormDialog
+        id={id}
+        title={title}
+        content={content}
+        open={open}
+        setOpen={setOpen}
+      />
     </Fragment>
   )
 };
