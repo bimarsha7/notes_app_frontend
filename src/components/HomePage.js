@@ -11,6 +11,7 @@ export default function HomePage() {
   const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState('paper');
   const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
   const [notes, setNotes] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -39,17 +40,15 @@ export default function HomePage() {
         setSearchQuery={setSearchQuery}
       />
       <AddButton
-        open={open}
-        setOpen={setOpen}
-        scroll={scroll}
-        setScroll={setScroll}
-        title={title}
-        setTitle={setTitle}
         handleClickOpen={handleClickOpen}
       />
       <ScrollDialog
         open={open}
         setOpen={setOpen}
+        title={title}
+        setTitle={setTitle}
+        content={content}
+        setContent={setContent}
       />
       <Grid2 container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Notes

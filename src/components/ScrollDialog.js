@@ -15,48 +15,34 @@ export default function ScrollDialog({ open, setOpen, scroll, title, setTitle, s
   const [newContent, setNewContent] = useState('');
   const [newId, setNewId] = useState();
 
+  const resetData = () => {
+    setNewId();
+    setNewTitle('');
+    setNewContent('');
+  }
+
   const handleClose = () => {
     setOpen(false);
+    // resetData();
   };
 
-  const handleEdit = async (id, data) => {
+  const saveNote = async () => {
+    const res = await createNote({
+      title: newTitle,
+      content: newContent
+    })
+    setNewId(res.id)
+  }
+
+  const editNote = async () => {
     try {
-      const response = await updateNote(id, data);
-      if (response) {
-        setNewTitle(response.title)
-        setNewContent(response.content)
-      }
+      await updateNote(newId, {
+        title: newTitle,
+        content: newContent
+      });
       return;
     } catch (error) {
       throw error;
-    }
-  };
-
-  const handleSave = async (data) => {
-    try {
-      if (newId) {
-        handleEdit(newId, data)
-        return;
-      }
-      const response = await createNote(data);
-      if (response) {
-        setNewId(response.id)
-      }
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  const handleContentChange = (html) => {
-    setNewContent(html);
-    if (newTitle && newContent) {
-      handleSave({
-        title: newTitle,
-        content: html
-      });
-    }
-    if (!newTitle) {
-      alert("Provide title to save.")
     }
   }
 
@@ -67,8 +53,19 @@ export default function ScrollDialog({ open, setOpen, scroll, title, setTitle, s
       if (descriptionElement !== null) {
         descriptionElement.focus();
       }
+
+      if (open === true) {
+        saveNote();
+      }
+      resetData();
     }
   }, [open]);
+
+  useEffect(() => {
+    if (newTitle || newContent) {
+      editNote();
+    }
+  }, [newTitle, newContent])
 
   return (
     <Fragment>
@@ -86,10 +83,10 @@ export default function ScrollDialog({ open, setOpen, scroll, title, setTitle, s
             fullWidth
             label="Title"
             id="standard-size-small"
-            defaultValue={title}
+            defaultValue={newTitle}
             size="small"
             variant="standard"
-            value={title}
+            value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
           />
         </DialogTitle>
@@ -103,7 +100,7 @@ export default function ScrollDialog({ open, setOpen, scroll, title, setTitle, s
               theme="snow"
               style={{ height: '40vh', width: '40vw' }}
               value={newContent}
-              onChange={handleContentChange}
+              onChange={(html) => setNewContent(html)}
             />
           </DialogContentText>
         </DialogContent>

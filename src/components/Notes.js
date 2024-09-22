@@ -6,7 +6,6 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { deleteNote, getAllNotes, updateNote } from '../api/notes';
-import ScrollDialog from './ScrollDialog';
 import ReactQuill from 'react-quill';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Grid2 } from '@mui/material';
