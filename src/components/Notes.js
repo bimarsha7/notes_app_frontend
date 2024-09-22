@@ -3,9 +3,7 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { deleteNote, getAllNotes, updateNote } from '../api/notes';
+import { deleteNote, updateNote } from '../api/notes';
 import ReactQuill from 'react-quill';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Grid2 } from '@mui/material';
@@ -52,27 +50,13 @@ function TextEditor({ id, title, content, readNotes }) {
   }
   return (
     <Fragment>
-      <Box sx={{
-        p: 2,
-        mb: 0.5,
-        color: '#000000',
-        fontWeight: '600',
-        display: 'flex',
-        justifyContent: 'left'
-      }}
-      >
-        {title}
-        <DeleteIcon sx={{
-          display: 'flex',
-          textAlign: 'end',
-          justifyContent: 'end',
-          position: 'end',
-          ml: 25,
-          pr: 2
-        }}
-          onClick={handleDelete}
-        />
-      </Box>
+      <Grid2 container spacing={2}>
+        <Grid2 size={10} sx={{ textAlign: 'start', padding: 1, fontWeight: 600, fontSize: 15 }}>{title}</Grid2>
+        <Grid2 size={2} sx={{ textAlign: 'center', padding: 1 }}>
+          <DeleteIcon onClick={handleDelete}
+          />
+        </Grid2>
+      </Grid2>
 
       <CardContent>
         <ReactQuill
