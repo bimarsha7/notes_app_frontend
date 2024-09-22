@@ -14,16 +14,21 @@ export default function HomePage() {
   const [content, setContent] = useState('');
   const [notes, setNotes] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [filteredNotes, setFilteredNotes] = useState([]);
 
   const handleClickOpen = (scrollType) => () => {
     setOpen(true);
     setScroll(scrollType);
   };
 
-  const filteredNotes = notes?.filter((note) =>
-    note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    note.content.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  useEffect(() => {
+    const filteredNotes = notes?.filter((note) =>
+      note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      note.content.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredNotes(filteredNotes)
+  }, [notes, searchQuery]);
+
 
   const readNotes = async () => {
     const data = await getAllNotes();
