@@ -14,10 +14,6 @@ import dayjs from 'dayjs';
 export default function FormDialog({ id, open, setOpen }) {
   const [dateTimeValue, setDateTimeValue] = useState(dayjs());
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
   const handleClose = () => {
     setOpen(false);
   };
@@ -39,7 +35,7 @@ export default function FormDialog({ id, open, setOpen }) {
   }
 
   return (
-    <Fragment>
+    <>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -76,6 +72,6 @@ export default function FormDialog({ id, open, setOpen }) {
           <Button type="submit">Remind</Button>
         </DialogActions>
       </Dialog>
-    </Fragment>
+    </>
   );
 }

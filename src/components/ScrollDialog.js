@@ -10,7 +10,7 @@ import 'react-quill/dist/quill.snow.css';
 import TextField from '@mui/material/TextField';
 import { createNote, updateNote } from '../api/notes';
 
-export default function ScrollDialog({ open, setOpen, scroll, title, setTitle, setScroll, content }) {
+export default function ScrollDialog({ open, setOpen, scroll }) {
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
   const [newId, setNewId] = useState();

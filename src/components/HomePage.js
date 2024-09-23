@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import SearchAppBar from './SearchAppBar';
 import AddButton from './AddButton';
 import ScrollDialog from './ScrollDialog';
