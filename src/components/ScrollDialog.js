@@ -8,9 +8,9 @@ import DialogTitle from '@mui/material/DialogTitle';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import TextField from '@mui/material/TextField';
-import { createNote, updateNote } from '../api/notes';
+import { createNote, deleteNote, updateNote } from '../api/notes';
 
-export default function ScrollDialog({ open, setOpen, scroll }) {
+export default function ScrollDialog({ open, setOpen, readNotes }) {
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
   const [newId, setNewId] = useState();
@@ -32,6 +32,11 @@ export default function ScrollDialog({ open, setOpen, scroll }) {
       content: newContent
     })
     setNewId(res.id)
+  }
+
+  const deleteIfEmpty = async () => {
+    await deleteNote(newId);
+    readNotes();
   }
 
   const editNote = async () => {
@@ -57,6 +62,13 @@ export default function ScrollDialog({ open, setOpen, scroll }) {
       if (open === true) {
         saveNote();
       }
+
+      // resets the new note's states
+      resetData();
+    }
+    if (newId && !newTitle && !newContent) {
+      // delete if note does not have any title/content
+      deleteIfEmpty();
       resetData();
     }
   }, [open]);
@@ -72,7 +84,6 @@ export default function ScrollDialog({ open, setOpen, scroll }) {
       <Dialog
         open={open}
         onClose={handleClose}
-        scroll={scroll}
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
         maxWidth="lg"
@@ -90,7 +101,7 @@ export default function ScrollDialog({ open, setOpen, scroll }) {
             onChange={(e) => setNewTitle(e.target.value)}
           />
         </DialogTitle>
-        <DialogContent dividers={scroll === 'paper'}>
+        <DialogContent>
           <DialogContentText
             id="scroll-dialog-description"
             ref={descriptionElementRef}
