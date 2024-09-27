@@ -29,16 +29,19 @@ function TextEditor({ id, title, content, readNotes }) {
   const handleDelete = async () => {
     await deleteNote(id);
     readNotes()
-  }
+  };
+
   const handleEdit = async (html) => {
     await updateNote(id, {
       title: title,
       content: html
     });
-  }
+  };
+
   const handleReminder = () => {
     setOpen(true)
-  }
+  };
+
   return (
     <Fragment>
       <Grid2 container spacing={2}>

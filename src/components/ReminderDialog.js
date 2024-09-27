@@ -35,8 +35,7 @@ export default function FormDialog({ id, open, setOpen }) {
   }
 
   return (
-    <>
-      <Dialog
+    <Dialog
         open={open}
         onClose={handleClose}
         PaperProps={{
@@ -71,7 +70,6 @@ export default function FormDialog({ id, open, setOpen }) {
           <Button onClick={handleClose}>Cancel</Button>
           <Button type="submit">Remind</Button>
         </DialogActions>
-      </Dialog>
-    </>
+    </Dialog>
   );
 }
