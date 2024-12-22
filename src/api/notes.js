@@ -1,14 +1,13 @@
 import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_BASE_URL + '/notes';
-console.log("API_URL: ", API_URL);
 
 export const createNote = async (data) => {
   try {
     const response = await axios.post(API_URL, data);
     return response.data;
   } catch (error) {
-    throw error;
+    throw new Error(error);
   }
 }
 
@@ -18,7 +17,7 @@ export const getNoteById = async (id) => {
     return response.data;
   } catch (error) {
     console.error(`Error fetching note with ID ${id}:`, error);
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -28,7 +27,7 @@ export const getAllNotes = async () => {
     return response.data
   } catch (error) {
     console.error(`Error fetching notes`, error);
-    throw error;
+    throw new Error(error);
   }
 }
 
@@ -38,7 +37,7 @@ export const updateNote = async (id, data) => {
     return response.data
   } catch (error) {
     console.error(`Error updating note with ID ${id}:`, error);
-    throw error;
+    throw new Error(error);
   }
 }
 
@@ -48,7 +47,7 @@ export const deleteNote = async (id) => {
     return response.data;
   } catch (error) {
     console.error(`Error deleting note with ID ${id}:`, error);
-    throw error;
+    throw new Error(error);
   }
 };
 
@@ -58,6 +57,6 @@ export const sendNoteReminder = async (id, data) => {
     return response.data
   } catch (error) {
     console.error(`Error sending reminder of note with ID ${id}:`, error);
-    throw error;
+    throw new Error(error);
   }
 }
